@@ -1,4 +1,5 @@
 import axios from "axios";
+import {server} from '../config'; 
 import setAuthToken from "../utils/setAuthToken";
 import jwt_decode from "jwt-decode";
 import {
@@ -7,9 +8,14 @@ import {
     USER_LOADING
 } from "./types";
 
+const serverApi = {
+    "register" : server.api + '/auth/register',
+    "login" : server.api + '/auth/login'
+}
+
 export const registerUser = (userData, history) => dispatch => {
     axios
-        .post("/api/register", userData)
+        .post(serverApi.register, userData)
         .then(res => history.push("/login"))
         .catch(err =>
             dispatch({
@@ -21,9 +27,11 @@ export const registerUser = (userData, history) => dispatch => {
 
 export const loginUser = userData => dispatch => {
     axios
-        .post("/api/login", userData)
+        .post(serverApi.login, userData)
         .then(res => {
-            const { token } = res.data;
+            const { tokens } = res.data;
+            let {access: {token} } =  tokens;
+            token = "Bearer " + token;
             localStorage.setItem("jwtToken", token);
             setAuthToken(token);
             const decoded = jwt_decode(token);

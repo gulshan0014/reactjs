@@ -1,5 +1,6 @@
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Dashboard from "../components/pages/Dashboard";
+import User from "../components/pages/Users";
 import React, { Component } from 'react';
 import Login from "../components/auth/Login";
 import NotFound from "../components/layout/NotFound";
@@ -18,7 +19,6 @@ import '../../node_modules/font-awesome/css/font-awesome.css';
 import '../../node_modules/jquery/dist/jquery.min';
 import '../../node_modules/popper.js/dist/popper';
 
-import User from "../components/pages/Users";
 
 if (localStorage.jwtToken) {
     const token = localStorage.jwtToken;

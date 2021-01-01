@@ -11,6 +11,9 @@ import {faPlus} from "@fortawesome/free-solid-svg-icons";
 import UserAddModal from "../partials/UserAddModal";
 import UserUpdateModal from "../partials/UserUpdateModal";
 import { toast, ToastContainer} from "react-toastify";
+import ReactTable from "react-table"; 
+
+import {server} from '../../config';
 
 class Users extends Component {
 
@@ -18,41 +21,33 @@ class Users extends Component {
         super(props);
 
         this.columns = [
-            {
-                key: "_id",
-                text: "Id",
-                className: "id",
-                align: "left",
-                sortable: true,
+
+            {  
+                Header: 'ID',  
+                accessor: 'id'  
             },
-            {
-                key: "name",
-                text: "Name",
-                className: "name",
-                align: "left",
-                sortable: true,
+            {  
+                Header: 'Name',  
+                accessor: 'name'  
             },
-            {
-                key: "email",
-                text: "Email",
-                className: "email",
-                align: "left",
-                sortable: true
+            {  
+               Header: 'Email',  
+               accessor: 'email'  
             },
-            {
-                key: "date",
-                text: "Date",
-                className: "date",
-                align: "left",
-                sortable: true
+            {  
+                Header: 'Role',  
+                accessor: 'role'  
             },
+            {  
+                Header: 'CreatedAt',  
+                accessor: 'createdAt'  
+            },
+
+
             {
-                key: "action",
-                text: "Action",
-                className: "action",
-                width: 100,
-                align: "left",
-                sortable: false,
+                Header: "Action",
+                accessor: "action",
+                
                 cell: record => {
                     return (
                         <Fragment>
@@ -129,9 +124,10 @@ class Users extends Component {
 
     getData() {
         axios
-            .post("/api/user-data")
+            .get(server.api + "/users/")
             .then(res => {
-                this.setState({ records: res.data})
+                this.setState({ records: res.data.results});
+                // console.log("state : ", this.state, this.columns)
             })
             .catch()
     }
@@ -171,12 +167,33 @@ class Users extends Component {
                             <button className="btn btn-link mt-3" id="menu-toggle"><FontAwesomeIcon icon={faList}/></button>
                             <button className="btn btn-outline-primary float-right mt-3 mr-2" data-toggle="modal" data-target="#add-user-modal"><FontAwesomeIcon icon={faPlus}/> Add User</button>
                             <h1 className="mt-2 text-primary">Users List</h1>
-                            {/* <ReactDatatable
-                                config={this.config}
-                                records={this.state.records}
-                                columns={this.columns}
-                                onPageChange={this.pageChange.bind(this)}
-                            /> */}
+                            {/* {JSON.stringify(this.state)} */}
+                            <div>
+                                <ul>
+                                    {
+                                        this.state.records && this.state.records.length && this.state.records.map(x=>{
+                                            return (
+                                                <li>
+                                                    id:{x.id},
+                                                    name:{x.name}, 
+                                                    email:{x.email}, 
+                                                    role:{x.role}
+                                                </li>
+                                            )
+                                        })
+                                    }
+                                </ul>
+                            </div>
+                            {/* {
+                             
+                                <ReactTable  
+                                    data={this.state.records}  
+                                    columns={this.columns}  
+                                    defaultPageSize = {2}  
+                                    pageSizeOptions = {[2,4, 6]}  
+                                />  
+                            
+                            } */}
                         </div>
                     </div>
                     <ToastContainer/>
