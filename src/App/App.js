@@ -1,6 +1,8 @@
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Dashboard from "../components/pages/Dashboard";
 import User from "../components/pages/Users";
+import VoiceStreaming from "../components/pages/VoiceStreaming";
+import WebRTC from "../components/pages/WebRTC";
 import React, { Component } from 'react';
 import Login from "../components/auth/Login";
 import NotFound from "../components/layout/NotFound";
@@ -45,6 +47,8 @@ class App extends Component {
                             <Switch>
                                 <PrivateRoute exact path="/dashboard" component={Dashboard} />
                                 <PrivateRoute exact path="/users" component={User} />
+                                <PrivateRoute exact path="/voiceStreaming" component={VoiceStreaming} />
+                                <PrivateRoute exact path="/webRTC" component={WebRTC} />
                             </Switch>
                             <Route exact path="*" component={NotFound} />
                         </Switch>

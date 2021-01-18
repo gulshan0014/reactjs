@@ -17,7 +17,7 @@ class UserAddModal extends React.Component {
             name: "",
             email: "",
             password: "",
-            password2: "",
+            role: "",
             errors: {},
         };
     }
@@ -49,7 +49,7 @@ class UserAddModal extends React.Component {
             name: this.state.name,
             email: this.state.email,
             password: this.state.password,
-            password2: this.state.password2
+            role: this.state.role
         };
         this.props.addUser(newUser, this.props.history);
     };
@@ -123,20 +123,20 @@ class UserAddModal extends React.Component {
                                     </div>
                                     <div className="row mt-2">
                                         <div className="col-md-3">
-                                            <label htmlFor="password2">Confirm Password</label>
+                                            <label htmlFor="role">Role</label>
                                         </div>
                                         <div className="col-md-9">
                                             <input
                                                 autoComplete={''}
                                                 onChange={this.onChange}
-                                                value={this.state.password2}
-                                                id="password2"
+                                                value={this.state.role}
+                                                id="role"
                                                 type="password"
                                                 className={classnames("form-control", {
-                                                    invalid: errors.password2
+                                                    invalid: errors.role
                                                 })}
                                             />
-                                            <span className="text-danger">{errors.password2}</span>
+                                            <span className="text-danger">{errors.role}</span>
                                         </div>
                                     </div>
                                 </form>
