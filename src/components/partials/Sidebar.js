@@ -23,6 +23,7 @@ class Sidebar extends Component {
                     <Link to="/events" className="list-group-item list-group-item-action">Events</Link>
                     <Link to="/voiceStreaming" className="list-group-item list-group-item-action">Voice Streaming</Link>
                     <Link to="/webRTC" className="list-group-item list-group-item-action">Web RTC</Link>
+                    <Link to="/socket-io" className="list-group-item list-group-item-action">Socket.io</Link>
                     <button className="list-group-item list-group-item-action" onClick={this.onLogoutClick}>Logout <FontAwesomeIcon icon={faSignOutAlt} /></button>
                 </div>
             </div>
